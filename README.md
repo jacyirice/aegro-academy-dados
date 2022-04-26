@@ -17,3 +17,9 @@ O projeto está sendo desenvolvido utilizando as seguintes tecnologias
 - [PostgreSQL](https://www.postgresql.org/)
 
 ---
+
+## Desenvolvido por
+[Jacyiricê Silva Oliveira](https://github.com/jacyirice/)
+
+## Disponivel em 
+[GitHub](https://github.com/jacyirice/aegro-academy-dados)
