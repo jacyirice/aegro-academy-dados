@@ -10,3 +10,10 @@ As seguintes exportações ou dashboards estarão disponiveis:
 ### Diagrama Entidade-Relacionamento
 [![Diagrama ER](https://github.com/jacyirice/aegro-academy-dados/docs/imgs/diagrama_ER.png)](https://dbdiagram.io/d/62621a901072ae0b6acacee2)
 ---
+## ⚒️ Tecnologias utilizadas
+
+O projeto está sendo desenvolvido utilizando as seguintes tecnologias
+
+- [PostgreSQL](https://www.postgresql.org/)
+
+---
