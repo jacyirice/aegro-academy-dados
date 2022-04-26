@@ -14,7 +14,7 @@ As seguintes exportações ou dashboards estarão disponiveis:
 3. O total de postagens agrupados por dia.
 
 ### Diagrama Entidade-Relacionamento
-[![Diagrama ER](https://github.com/jacyirice/aegro-academy-dados/docs/imgs/diagrama_ER.png)](https://dbdiagram.io/d/62621a901072ae0b6acacee2)
+[![Diagrama ER](/docs/imgs/diagrama_ER.png)](https://dbdiagram.io/d/62621a901072ae0b6acacee2)
 ---
 ## ⚒️ Tecnologias utilizadas
 
