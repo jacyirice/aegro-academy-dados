@@ -1,8 +1,11 @@
 from .postgres import PostgreSQL
 
-aegro_db = PostgreSQL(database='aegroprojeto',
-                      host='localhost',
-                      user='postgres',
-                      password='postgres',
-                      )
-aegro_db.connect()
+def get_conn():
+    aegro_db = PostgreSQL(
+        database="aegroprojeto",
+        host="localhost",
+        user="postgres",
+        password="postgres",
+    )
+    aegro_db.connect()
+    return aegro_db
