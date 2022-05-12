@@ -1,10 +1,10 @@
-import os 
+import os
 
 from dotenv import load_dotenv
 
 load_dotenv()
 
-MY_BEARER_TOKEN = os.getenv('TWITTER_BEARER_TOKEN')
+MY_BEARER_TOKEN = os.getenv("TWITTER_BEARER_TOKEN")
 USER_FORMAT = {
     "tweet_id": None,
     "author_id": None,
@@ -32,9 +32,27 @@ TWEET_FORMAT = {
     "public_metrics_quote_count": None,
 }
 
-TWEET_FIELDS = ['id', 'created_at', 'text',
-                'author_id', 'public_metrics', 'lang', 'entities']
-USER_FIELDS = ['id', 'created_at', 'name', 'username', 'profile_image_url',
-               'location', 'url', 'description', 'public_metrics', 'protected', 'verified']
+TWEET_FIELDS = [
+    "id",
+    "created_at",
+    "text",
+    "author_id",
+    "public_metrics",
+    "lang",
+    "entities",
+]
+USER_FIELDS = [
+    "id",
+    "created_at",
+    "name",
+    "username",
+    "profile_image_url",
+    "location",
+    "url",
+    "description",
+    "public_metrics",
+    "protected",
+    "verified",
+]
 MAX_RESULTS = 100
-EXPANSIONS = 'author_id'
+EXPANSIONS = "author_id"
