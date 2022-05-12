@@ -20,6 +20,7 @@ As seguintes exportações ou dashboards estarão disponiveis:
 
 O projeto está sendo desenvolvido utilizando as seguintes tecnologias
 
+- [Python](https://python.org/)
 - [PostgreSQL](https://www.postgresql.org/)
 
 ---
