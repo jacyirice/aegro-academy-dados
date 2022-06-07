@@ -8,28 +8,16 @@ from .constants import (
 )
 
 
-def format_users_in_dicts(users: list) -> list:
-    users_formated = [{
-        "author_id": user['id'],
-        "created_at": user['created_at'],
-        "name": user['name'],
-        "username": user['username'],
-        "profile_image_url": user['profile_image_url'],
-        "url": user['url'],
-        "protected": user['protected'],
-        "verified": user['verified'],
-        "public_metrics_followers_count": user['public_metrics'].get(
-            "followers_count"
-        ),
-        "public_metrics_following_count": user['public_metrics'].get(
-            "following_count"
-        ),
-        "public_metrics_tweet_count": user['public_metrics'].get("tweet_count"),
-        "public_metrics_listed_count": user['public_metrics'].get("listed_count"),
-    } for user in users]
-
-    return users_formated
-
+def format_users(users: list) -> list:
+    for user in users:
+        public_metrics = user.pop('public_metrics')
+        user["author_id"] = user.pop('id')        
+        user["public_metrics_followers_count"] = public_metrics.get("followers_count"),
+        user["public_metrics_following_count"] = public_metrics.get("following_count"),
+        user["public_metrics_tweet_count"] = public_metrics.get("tweet_count"),
+        user["public_metrics_listed_count"] = public_metrics.get("listed_count"),
+    
+    return users
 
 def format_hashtags(hashtags: list) -> list:
     return [{"tag": h.get("tag").lower()} for h in hashtags]

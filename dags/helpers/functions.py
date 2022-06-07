@@ -3,7 +3,7 @@ from pandas import json_normalize, read_json, DataFrame
 from psycopg2.extensions import connection
 
 from daglibs.database.postgres import PostgreSQL
-from daglibs.twitter.twitter import format_users_in_dicts, format_tweets_and_hashtags_in_dicts
+from daglibs.twitter.twitter import format_users, format_tweets_and_hashtags_in_dicts
 
 
 def get_conn_psql() -> connection:
@@ -14,7 +14,7 @@ def get_conn_psql() -> connection:
 
 def processing_users(ti) -> None:
     users = ti.xcom_pull(task_ids='extract_tweets', key='users')
-    processed_users = json_normalize(format_users_in_dicts(users))
+    processed_users = json_normalize(format_users(users))
     processed_users.to_json('/tmp/processed_users.json')
 
 
