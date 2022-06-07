@@ -6,19 +6,19 @@ from daglibs.database.postgres import PostgreSQL
 from daglibs.twitter.twitter import format_users_in_dicts, format_tweets_and_hashtags_in_dicts
 
 
-def get_conn_psql():
+def get_conn_psql() -> connection:
     return PostgresHook(
         postgres_conn_id="db_aegro_postgres",
     ).get_conn()
 
 
-def processing_users(ti):
+def processing_users(ti) -> None:
     users = ti.xcom_pull(task_ids='extract_tweets', key='users')
     processed_users = json_normalize(format_users_in_dicts(users))
     processed_users.to_json('/tmp/processed_users.json')
 
 
-def processing_tweets_hashtags(ti):
+def processing_tweets_hashtags(ti) -> None:
     tweets = ti.xcom_pull(task_ids='extract_tweets', key='tweets')
     tweets_formated, hashtags_formated = format_tweets_and_hashtags_in_dicts(
         tweets)
@@ -29,7 +29,7 @@ def processing_tweets_hashtags(ti):
     processed_hashtags.to_json('/tmp/processed_hashtags.json')
 
 
-def storing_users(ti, conn):
+def storing_users(conn: connection) -> None:
     processed_users = read_json('/tmp/processed_users.json')
 
     db = PostgreSQL(conn)
@@ -41,7 +41,7 @@ def storing_users(ti, conn):
     )
 
 
-def storing_tweets_hashtags(ti, conn):
+def storing_tweets_hashtags(conn: connection) -> None:
     processed_tweets = read_json('/tmp/processed_tweets.json')
     processed_hashtags = read_json('/tmp/processed_hashtags.json')
 

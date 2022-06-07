@@ -1,19 +1,14 @@
-import psycopg2
 from psycopg2.extensions import connection
 from psycopg2.extras import execute_values
 
 
 class PostgreSQL:
     def __init__(self, conn: connection) -> None:
-        """This a construct method
+        """Method constructor
 
         Args:
-            database (str): Database name
-            host (str): Database host
-            user (str): Database user
-            password (str): Database password
-            port (int, optional): Database port. Defaults to 5432.
-        """
+            conn (connection): Database connection
+        """        
         self.conn = conn
 
     def disconnect(self) -> None:
@@ -57,6 +52,16 @@ class PostgreSQL:
             return cursor.fetchall()
 
     def insert(self, table: str, obj: dict, returning_keys: str = "id") -> int:
+        """This method inserts a record into the database table.
+
+        Args:
+            table (str): Table name
+            obj (dict): Object containing record data
+            returning_keys (str, optional): Fields that values ​​will be returned. Defaults to "id".
+
+        Returns:
+            int: query return
+        """        
         campos = self.format_fields(obj.keys())
         valores = self.format_values(obj.values())
 
@@ -72,6 +77,17 @@ class PostgreSQL:
     def insert_many(
         self, table: str, list_fields: list, list_objs: list, returning_keys: str = "id"
     ) -> list:
+        """This method inserts many records into the database table
+
+        Args:
+            table (str): Table name
+            list_fields (list): List of table column names
+            list_objs (list): List containing dictionaries with registration data
+            returning_keys (str, optional): Fields that values ​​will be returned. Defaults to "id".
+
+        Returns:
+            list: query return
+        """        
         campos = self.format_fields(list_fields)
         valores = self.format_many_values(list_objs)
 
@@ -85,6 +101,17 @@ class PostgreSQL:
             return cursor.fetchall()
 
     def select_id_or_insert(self, table: str, uk: str, obj: dict) -> int:
+        """This method selects the id of a record if it already exists or 
+        inserts the record into the database table
+
+        Args:
+            table (str): Table name
+            uk (str): Unique key
+            obj (dict): Object containing record data
+
+        Returns:
+            int: query return
+        """        
         objs = self.select_by_field(table, uk, obj[uk])
 
         if not objs:
@@ -100,6 +127,18 @@ class PostgreSQL:
         unique_key_name: str,
         returning_keys: str = "id",
     ) -> list:
+        """This method insert or update a record using upsert
+
+        Args:
+            table (str): Table name
+            list_fields (list): List of table column names
+            list_objs (list): List containing dictionaries with registration data
+            unique_key_name (str): Unique key
+            returning_keys (str, optional): Fields that values ​​will be returned. Defaults to "id".
+
+        Returns:
+            list: Query return
+        """        
         campos = self.format_fields(list_fields)
         upsert_update = self.format_upsert_update(list_fields)
         valores = self.format_many_values(list_objs)
@@ -124,6 +163,14 @@ class PostgreSQL:
         list_objs: list,
         unique_key_name: str,
     ) -> None:
+        """This method inserts or does nothing a record using upsert
+
+        Args:
+            table (str): Table name
+            list_fields (list): List of table column names
+            list_objs (list): List containing dictionaries with registration data
+            unique_key_name (str): Unique key
+        """        
         campos = self.format_fields(list_fields)
         valores = self.format_many_values(list_objs)
 
