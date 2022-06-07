@@ -106,6 +106,8 @@ Na [API do slack](https://api.slack.com/apps), siga os seguintes passos:
 5. Copie e guarde a WebHook URL que aparecerá. Exemplo de url: https://hooks.slack.com/services/XXXXXXX/XXXXXXXXX/XXXXXXXXXXXXXX
 
 ### Configurando o AirFlow
+Obs.: As configurações abaixo foram validadas no SO Linux. Caso tenha algum problema em outros sistemas operacionais, consulte a [documentação](https://airflow.apache.org/docs/apache-airflow/stable/start/docker.html)
+
 Faça as configurações iniciais do AirFlow
 ```bash
     # Configurando o usuário correto do Airflow
@@ -137,7 +139,7 @@ Crie a seguinte variavel(Admin -> Variables):
 - Key: TWITTER_BEARER_TOKEN
 - Val: Bearer token gerado anteriormente na api do twitter
 
-E reinicie o servidor. 
+Aguarde um momento até que as dags recarreguem e os erros desapareçam. Por fim, ative as dags twitter_processing e twitter_exporting.
 
 ## Desenvolvido por
 [Jacyiricê Silva Oliveira](https://github.com/jacyirice/)
