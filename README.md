@@ -22,20 +22,25 @@ através da slack webhook diariamente após finalizar as configurações:
 ```json
 {
     "hashtag": "bolhadev",
-    "total_tweets": 242,
+    "total_tweets": 397,
     "five_users_with_most_followers": [
+        {
+            "name": "Andre Noel",
+            "username": "ProgramadorREAL",
+            "total_followers": 46035
+        },
         {
             "name": "Rocketseat",
             "username": "rocketseat",
-            "total_followers": 35833
+            "total_followers": 35834
         },
         {
             "name": "ruruzinho",
             "username": "slashante",
-            "total_followers": 14027
+            "total_followers": 14028
         },
         {
-            "name": "Joao Paulo",
+            "name": "João Paulo 🇧🇷🇵🇹",
             "username": "joaopaulolndev",
             "total_followers": 4296
         },
@@ -43,11 +48,6 @@ através da slack webhook diariamente após finalizar as configurações:
             "name": "Evaldo Maciel -Dinho",
             "username": "DinhoPutz",
             "total_followers": 3136
-        },
-        {
-            "name": "ted",
-            "username": "unnotedme",
-            "total_followers": 1947
         }
     ],
     "total_tweets_group_by_date": [
@@ -56,7 +56,7 @@ através da slack webhook diariamente após finalizar as configurações:
             "date": "2022-06-05"
         },
         {
-            "total": 130,
+            "total": 285,
             "date": "2022-06-06"
         }
     ]
@@ -94,7 +94,7 @@ Na pagina de [desenvolvedores do twitter](https://developer.twitter.com/), siga 
 3. Nos detalhes do projeto, entre em Keys and tokens, copie a Bearer Token e guarde.
 
 ### Configurando o Banco de dados(PostgreSQL)
-Na pasta do projeto, execute o arquivo create_tables.sql no SGBD para que sejam criadas as tabelas necessarias, conforme o DER.
+Na pasta do projeto, execute o arquivo create_tables.sql no SGBD para que sejam criadas as tabelas necessarias, conforme o DER. Após, configure para aceitar conexões externas.
 
 ### Configurando Slack WebHook
 Na [API do slack](https://api.slack.com/apps), siga os seguintes passos:
@@ -132,10 +132,11 @@ Após realizar o login, crie as seguintes connections(Admin -> Connections):
     - Host: https://hooks.slack.com/services/
     - Password: Parte posterior a https://hooks.slack.com/services/ na WebHook URL que foi criada em Configurando Slack WebHook. Exemplo: para a url https://hooks.slack.com/services/ABCDEFG/XXXXXXXXX/XXXXXXXXXXXXXX, o password é ABCDEFG/XXXXXXXXX/XXXXXXXXXXXXXX
 
-Por fim, crie a seguinte variavel(Admin -> Variables):
+Crie a seguinte variavel(Admin -> Variables):
 - Key: TWITTER_BEARER_TOKEN
 - Val: Bearer token gerado anteriormente na api do twitter
 
+E reinicie o servidor. 
 
 ## Desenvolvido por
 [Jacyiricê Silva Oliveira](https://github.com/jacyirice/)
