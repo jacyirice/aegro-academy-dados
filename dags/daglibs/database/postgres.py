@@ -3,12 +3,13 @@ from psycopg2.extras import execute_values
 
 
 class PostgreSQL:
+
     def __init__(self, conn: connection) -> None:
         """Method constructor
 
         Args:
             conn (connection): Database connection
-        """        
+        """
         self.conn = conn
 
     def disconnect(self) -> None:
@@ -30,9 +31,11 @@ class PostgreSQL:
             cursor.execute(f"SELECT * FROM {table}")
             return cursor.fetchall()
 
-    def select_by_field(
-        self, table: str, field: str, value: str, op: str = "="
-    ) -> list:
+    def select_by_field(self,
+                        table: str,
+                        field: str,
+                        value: str,
+                        op: str = "=") -> list:
         """This method queries all records in a database table
         filtering by a column and a value
 
@@ -47,8 +50,8 @@ class PostgreSQL:
             list: List containing table records
         """
         with self.conn.cursor() as cursor:
-            cursor.execute(
-                f"SELECT * FROM {table} WHERE {field}{op}%s", (value,))
+            cursor.execute(f"SELECT * FROM {table} WHERE {field}{op}%s",
+                           (value, ))
             return cursor.fetchall()
 
     def insert(self, table: str, obj: dict, returning_keys: str = "id") -> int:
@@ -61,7 +64,7 @@ class PostgreSQL:
 
         Returns:
             int: query return
-        """        
+        """
         campos = self.format_fields(obj.keys())
         valores = self.format_values(obj.values())
 
@@ -74,9 +77,11 @@ class PostgreSQL:
 
             return cursor.fetchone()[0]
 
-    def insert_many(
-        self, table: str, list_fields: list, list_objs: list, returning_keys: str = "id"
-    ) -> list:
+    def insert_many(self,
+                    table: str,
+                    list_fields: list,
+                    list_objs: list,
+                    returning_keys: str = "id") -> list:
         """This method inserts many records into the database table
 
         Args:
@@ -87,7 +92,7 @@ class PostgreSQL:
 
         Returns:
             list: query return
-        """        
+        """
         campos = self.format_fields(list_fields)
         valores = self.format_many_values(list_objs)
 
@@ -111,7 +116,7 @@ class PostgreSQL:
 
         Returns:
             int: query return
-        """        
+        """
         objs = self.select_by_field(table, uk, obj[uk])
 
         if not objs:
@@ -138,7 +143,7 @@ class PostgreSQL:
 
         Returns:
             list: Query return
-        """        
+        """
         campos = self.format_fields(list_fields)
         upsert_update = self.format_upsert_update(list_fields)
         valores = self.format_many_values(list_objs)
@@ -170,7 +175,7 @@ class PostgreSQL:
             list_fields (list): List of table column names
             list_objs (list): List containing dictionaries with registration data
             unique_key_name (str): Unique key
-        """        
+        """
         campos = self.format_fields(list_fields)
         valores = self.format_many_values(list_objs)
 

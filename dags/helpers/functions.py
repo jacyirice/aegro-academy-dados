@@ -7,9 +7,7 @@ from daglibs.twitter.twitter import format_users, format_tweets_and_hashtags_in_
 
 
 def get_conn_psql() -> connection:
-    return PostgresHook(
-        postgres_conn_id="db_aegro_postgres",
-    ).get_conn()
+    return PostgresHook(postgres_conn_id="db_aegro_postgres", ).get_conn()
 
 
 def processing_users(ti) -> None:
@@ -61,8 +59,11 @@ def storing_tweets_hashtags(conn: connection) -> None:
             hashtag_id = db.select_id_or_insert("t_hashtags", "tag", hashtag)
 
             tweets_hashtags = tweets_hashtags.append(
-                {"tweet_id": tweets_ids[i][0], "hashtag_id": hashtag_id}, ignore_index=1
-            )
+                {
+                    "tweet_id": tweets_ids[i][0],
+                    "hashtag_id": hashtag_id
+                },
+                ignore_index=1)
 
     db.insert_or_nothing(
         table="t_tweets_hashtags",
@@ -71,6 +72,7 @@ def storing_tweets_hashtags(conn: connection) -> None:
         unique_key_name="tweet_id, hashtag_id",
     )
     db.disconnect()
+
 
 def get_five_users_with_most_followers(conn: connection, tag: str) -> list:
     with conn.cursor() as cursor:
@@ -82,7 +84,7 @@ def get_five_users_with_most_followers(conn: connection, tag: str) -> list:
                 INNER JOIN t_hashtags AS h ON h.id = th.hashtag_id
                 WHERE h.tag=%s)
                 ORDER BY u.public_metrics_followers_count DESC LIMIT 5;""",
-            (tag,),
+            (tag, ),
         )
         return cursor.fetchall()
 
@@ -95,7 +97,7 @@ def count_tweets_by_tag_group_by_date(conn: connection, tag: str) -> list:
                 INNER JOIN t_hashtags AS h ON h.id = th.hashtag_id
                 WHERE h.tag = %s
                 GROUP BY date(created_at)""",
-            (tag,),
+            (tag, ),
         )
         return cursor.fetchall()
 
@@ -107,6 +109,6 @@ def count_tweets_by_tag(conn: connection, tag: str) -> int:
                 INNER JOIN t_tweets_hashtags AS th ON th.tweet_id = t.id
                 INNER JOIN t_hashtags AS h ON h.id = th.hashtag_id
                 WHERE h.tag=%s""",
-            (tag,),
+            (tag, ),
         )
         return cursor.fetchone()[0]

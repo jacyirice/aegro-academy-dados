@@ -11,12 +11,15 @@ from .constants import (
 def format_users(users: list) -> list:
     for user in users:
         public_metrics = user.pop('public_metrics')
-        user["author_id"] = user.pop('id')        
-        user["public_metrics_followers_count"] = public_metrics.get("followers_count")
-        user["public_metrics_following_count"] = public_metrics.get("following_count")
+        user["author_id"] = user.pop('id')
+        user["public_metrics_followers_count"] = public_metrics.get(
+            "followers_count")
+        user["public_metrics_following_count"] = public_metrics.get(
+            "following_count")
         user["public_metrics_tweet_count"] = public_metrics.get("tweet_count")
-        user["public_metrics_listed_count"] = public_metrics.get("listed_count")
-    
+        user["public_metrics_listed_count"] = public_metrics.get(
+            "listed_count")
+
     return users
 
 
@@ -30,17 +33,21 @@ def format_tweets_and_hashtags_in_dicts(tweets: list) -> list:
     for tweet in tweets:
         public_metrics = tweet.pop('public_metrics')
         tweet["tweet_id"] = tweet.pop('id')
-        tweet["public_metrics_retweet_count"] = public_metrics.get("retweet_count")
+        tweet["public_metrics_retweet_count"] = public_metrics.get(
+            "retweet_count")
         tweet["public_metrics_reply_count"] = public_metrics.get("reply_count")
         tweet["public_metrics_like_count"] = public_metrics.get("like_count")
         tweet["public_metrics_quote_count"] = public_metrics.get("quote_count")
 
-        hashtags_formated.append(format_hashtags(tweet.pop('entities').get("hashtags", [])))
+        hashtags_formated.append(
+            format_hashtags(tweet.pop('entities').get("hashtags", [])))
 
     return tweets, hashtags_formated
 
 
-def search_tweets_by_hashtag_and_lang(ti, hashtag: str, lang: str = "pt") -> list:
+def search_tweets_by_hashtag_and_lang(ti,
+                                      hashtag: str,
+                                      lang: str = "pt") -> list:
     query = requests.utils.quote(f"#{hashtag} lang:{lang} -is:retweet")
     expansions = requests.utils.quote(EXPANSIONS)
     tweet_fields = requests.utils.quote(','.join(TWEET_FIELDS))
