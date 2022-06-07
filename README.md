@@ -9,7 +9,7 @@
 
 ## 🔖&nbsp; Sobre
 O projeto consiste em um pipeline de dados que adquire dados da API aberta do Twitter e grava em um banco de dados.
-Os seguintes dados, baseado na hashtag escolhida e somente a linguagem em Português, são exportados e disponibilizados 
+Os seguintes dados, baseado na hashtag escolhida e somente no idioma Português, são exportados e disponibilizados 
 através da slack webhook diariamente após finalizar as configurações:
 1. O total de tweets;
 2. Os cinco usuários com mais seguidores;
@@ -17,6 +17,13 @@ através da slack webhook diariamente após finalizar as configurações:
 
 ### Diagrama Entidade-Relacionamento
 [![Diagrama ER](/docs/imgs/diagrama_ER.png)](https://dbdiagram.io/d/62621a901072ae0b6acacee2)
+
+O projeto possui duas DAGs, uma para adquirir dados da API aberta do Twitter e gravar no banco de dados, twitter_processing, e outra para exportar os dados e enviá-los no slack, twitter_exporting. Veja os diagramas de cada DAG abaixo: 
+### Diagrama da DAG twitter_processing
+![Diagrama da DAG twitter_processing](docs/imgs/diagram_dag_twitter_processing.png)
+
+### Diagrama da DAG twitter_exporting
+![Diagrama da DAG twitter_exporting](docs/imgs/diagram_dag_twitter_exporting.png)
 
 ### Exemplo de Exportações
 ```json
@@ -106,6 +113,8 @@ Na [API do slack](https://api.slack.com/apps), siga os seguintes passos:
 5. Copie e guarde a WebHook URL que aparecerá. Exemplo de url: https://hooks.slack.com/services/XXXXXXX/XXXXXXXXX/XXXXXXXXXXXXXX
 
 ### Configurando o AirFlow
+Obs.: As configurações abaixo foram validadas no SO Linux. Caso tenha algum problema em outros sistemas operacionais, consulte a [documentação](https://airflow.apache.org/docs/apache-airflow/stable/start/docker.html)
+
 Faça as configurações iniciais do AirFlow
 ```bash
     # Configurando o usuário correto do Airflow
@@ -137,7 +146,7 @@ Crie a seguinte variavel(Admin -> Variables):
 - Key: TWITTER_BEARER_TOKEN
 - Val: Bearer token gerado anteriormente na api do twitter
 
-E reinicie o servidor. 
+Aguarde um momento até que as DAGs recarreguem e os erros desapareçam. Por fim, ative as DAGs twitter_processing e twitter_exporting.
 
 ## Desenvolvido por
 [Jacyiricê Silva Oliveira](https://github.com/jacyirice/)
