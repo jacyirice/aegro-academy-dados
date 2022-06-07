@@ -101,15 +101,15 @@ Na pagina de [desenvolvedores do twitter](https://developer.twitter.com/), siga 
 3. Nos detalhes do projeto, entre em Keys and tokens, copie a Bearer Token e guarde.
 
 ### Configurando o Banco de dados(PostgreSQL)
-Na pasta do projeto, execute o arquivo create_tables.sql no SGBD para que sejam criadas as tabelas necessarias, conforme o DER. Após, configure para aceitar conexões externas.
+Na pasta do projeto, execute o arquivo create_tables.sql no SGBD para que sejam criadas as tabelas necessárias, conforme o DER. Após, configure para aceitar conexões externas.
 
 ### Configurando Slack WebHook
 Na [API do slack](https://api.slack.com/apps), siga os seguintes passos:
 1. Crie um novo app(From scratch);
 2. Configure o nome do app e o workspace que ele irá usar;
 3. Em Add features and functionality, ative Incoming Webhooks;
-4. Clique no botão Add New Webhook to Workspace que aparecerá no fim da pagina, 
-5. Selecione o canal em que será enviadas as exportações e clique em permitir.
+4. Clique no botão Add New Webhook to Workspace que aparecerá no fim da página, 
+5. Selecione o canal em que serão enviadas as exportações e clique em permitir.
 5. Copie e guarde a WebHook URL que aparecerá. Exemplo de url: https://hooks.slack.com/services/XXXXXXX/XXXXXXXXX/XXXXXXXXXXXXXX
 
 ### Configurando o AirFlow
@@ -127,12 +127,12 @@ Faça as configurações iniciais do AirFlow
     # Iniciando AirFlow
     $ docker-compose up
 ```
-Acesse o webserver do AirFlow, disponivel em http://localhost:8080. A conta padrão tem o login airflow e a senha airflow. 
-Após realizar o login, crie as seguintes connections(Admin -> Connections):
-1. Conexao com o banco de dados
+Acesse o webserver do AirFlow, disponível em http://localhost:8080. A conta padrão tem o login airflow e a senha airflow. 
+Após realizar o login, crie as seguintes connections (Admin -> Connections):
+1. Conexão com o banco de dados
     - Connection Id: db_aegro_postgres
     - Connection Type: Postgres
-    - Host: Insira o ip da sua maquina(Não insira localhost)
+    - Host: Insira o ip da sua máquina (Não insira localhost)
     - Schema: Nome do schema que criou as tabelas
     - Login: Login do seu banco
     - Password: Senha do seu banco
@@ -142,7 +142,7 @@ Após realizar o login, crie as seguintes connections(Admin -> Connections):
     - Host: https://hooks.slack.com/services/
     - Password: Parte posterior a https://hooks.slack.com/services/ na WebHook URL que foi criada em Configurando Slack WebHook. Exemplo: para a url https://hooks.slack.com/services/ABCDEFG/XXXXXXXXX/XXXXXXXXXXXXXX, o password é ABCDEFG/XXXXXXXXX/XXXXXXXXXXXXXX
 
-Crie a seguinte variavel(Admin -> Variables):
+Crie a seguinte variável(Admin -> Variables):
 - Key: TWITTER_BEARER_TOKEN
 - Val: Bearer token gerado anteriormente na api do twitter
 

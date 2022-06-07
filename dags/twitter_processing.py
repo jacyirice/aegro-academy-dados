@@ -5,14 +5,14 @@ from datetime import datetime, timedelta
 from daglibs.twitter.twitter import search_tweets_by_hashtag_and_lang
 from helpers.functions import processing_tweets_hashtags, processing_users, get_conn_psql, storing_users, storing_tweets_hashtags
 
-
 default_args = {
-    'start_date': datetime(2022,  6,  5),
+    'start_date': datetime(2022, 6, 5),
     'retry_delay': timedelta(minutes=1),
     'retries': 1,
 }
 
-with DAG('twitter_processing', schedule_interval=timedelta(minutes=5),
+with DAG('twitter_processing',
+         schedule_interval=timedelta(minutes=5),
          default_args=default_args,
          catchup=False) as dag:
 
