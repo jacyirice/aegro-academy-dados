@@ -24,29 +24,19 @@ def format_hashtags(hashtags: list) -> list:
 
 
 def format_tweets_and_hashtags_in_dicts(tweets: list) -> list:
-    tweets_formated = []
     hashtags_formated = []
 
     for tweet in tweets:
-        tweets_formated.append(
-            {
-                "tweet_id": tweet['id'],
-                "author_id": tweet['author_id'],
-                "created_at": tweet['created_at'],
-                "lang": tweet['lang'],
-                "text": tweet['text'],
-                "public_metrics_retweet_count": tweet['public_metrics'].get(
-                    "retweet_count"
-                ),
-                "public_metrics_reply_count": tweet['public_metrics'].get("reply_count"),
-                "public_metrics_like_count": tweet['public_metrics'].get("like_count"),
-                "public_metrics_quote_count": tweet['public_metrics'].get("quote_count"),
-            }
-        )
-        hashtags_formated.append(format_hashtags(
-            tweet['entities'].get("hashtags", [])))
+        public_metrics = tweet.pop('public_metrics')
+        tweet["tweet_id"] = tweet.pop('id')
+        tweet["public_metrics_retweet_count"] = public_metrics.get("retweet_count")
+        tweet["public_metrics_reply_count"] = public_metrics.get("reply_count")
+        tweet["public_metrics_like_count"] = public_metrics.get("like_count")
+        tweet["public_metrics_quote_count"] = public_metrics.get("quote_count")
 
-    return tweets_formated, hashtags_formated
+        hashtags_formated.append(format_hashtags(tweet.pop('entities').get("hashtags", [])))
+
+    return tweets, hashtags_formated
 
 
 def search_tweets_by_hashtag_and_lang(ti, hashtag: str, lang: str = "pt") -> list:
