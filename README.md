@@ -109,6 +109,7 @@ Na [API do slack](https://api.slack.com/apps), siga os seguintes passos:
 Faça as configurações iniciais do AirFlow
 ```bash
     # Configurando o usuário correto do Airflow
+    $ mkdir logs/ plugins/
     $ echo -e "AIRFLOW_UID=$(id -u)" > .env
 
     # Inicializando o banco de dados
