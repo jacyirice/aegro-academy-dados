@@ -39,6 +39,7 @@ def storing_users(conn: connection) -> None:
         list_objs=processed_users,
         unique_key_name="author_id",
     )
+    db.disconnect()
 
 
 def storing_tweets_hashtags(conn: connection) -> None:
@@ -69,7 +70,7 @@ def storing_tweets_hashtags(conn: connection) -> None:
         list_objs=tweets_hashtags,
         unique_key_name="tweet_id, hashtag_id",
     )
-
+    db.disconnect()
 
 def get_five_users_with_most_followers(conn: connection, tag: str) -> list:
     with conn.cursor() as cursor:

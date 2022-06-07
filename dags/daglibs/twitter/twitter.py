@@ -19,6 +19,7 @@ def format_users(users: list) -> list:
     
     return users
 
+
 def format_hashtags(hashtags: list) -> list:
     return [{"tag": h.get("tag").lower()} for h in hashtags]
 

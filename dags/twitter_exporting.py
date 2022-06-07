@@ -37,7 +37,8 @@ def _get_exports(hashtag: str) -> None:
             'five_users_with_most_followers': five_users,
             'total_tweets_group_by_date': total_tweets_group_by_day
         }, file, indent=4, ensure_ascii=False)
-
+    conn.close()
+    
 def _get_message() -> str:
     try:
         with open('/tmp/exports_tweets.json', 'r') as file:
