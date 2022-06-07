@@ -12,10 +12,10 @@ def format_users(users: list) -> list:
     for user in users:
         public_metrics = user.pop('public_metrics')
         user["author_id"] = user.pop('id')        
-        user["public_metrics_followers_count"] = public_metrics.get("followers_count"),
-        user["public_metrics_following_count"] = public_metrics.get("following_count"),
-        user["public_metrics_tweet_count"] = public_metrics.get("tweet_count"),
-        user["public_metrics_listed_count"] = public_metrics.get("listed_count"),
+        user["public_metrics_followers_count"] = public_metrics.get("followers_count")
+        user["public_metrics_following_count"] = public_metrics.get("following_count")
+        user["public_metrics_tweet_count"] = public_metrics.get("tweet_count")
+        user["public_metrics_listed_count"] = public_metrics.get("listed_count")
     
     return users
 
