@@ -1,3 +1,15 @@
+.tests
+
+# AirFlow
+logs/*
+airflow.sh
+
+# VSCode
+.vscode
+
+# PyCharm
+.idea
+
 # Byte-compiled / optimized / DLL files
 __pycache__/
 *.py[cod]
