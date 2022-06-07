@@ -4,11 +4,7 @@ from psycopg2.extras import execute_values
 
 
 class PostgreSQL:
-    conn: connection = None
-
-    def __init__(
-        self, database: str, host: str, user: str, password: str, port: int = 5432
-    ) -> None:
+    def __init__(self, conn: connection) -> None:
         """This a construct method
 
         Args:
@@ -18,24 +14,7 @@ class PostgreSQL:
             password (str): Database password
             port (int, optional): Database port. Defaults to 5432.
         """
-        self.database = database
-        self.host = host
-        self.user = user
-        self.password = password
-        self.port = port
-
-    def connect(self) -> None:
-        """This method makes the connection to the database"""
-        try:
-            conn = psycopg2.connect(
-                database=self.database,
-                host=self.host,
-                user=self.user,
-                password=self.password,
-            )
-            self.conn = conn
-        except psycopg2.Error as e:
-            print(f"Erro na conexão: {e}")
+        self.conn = conn
 
     def disconnect(self) -> None:
         """This method closes the connection to the database"""
@@ -73,7 +52,8 @@ class PostgreSQL:
             list: List containing table records
         """
         with self.conn.cursor() as cursor:
-            cursor.execute(f"SELECT * FROM {table} WHERE {field}{op}%s", (value,))
+            cursor.execute(
+                f"SELECT * FROM {table} WHERE {field}{op}%s", (value,))
             return cursor.fetchall()
 
     def insert(self, table: str, obj: dict, returning_keys: str = "id") -> int:
@@ -128,6 +108,7 @@ class PostgreSQL:
             execute_values(
                 cursor,
                 f"""INSERT INTO {table} ({campos}) VALUES %s
+                    
                     ON CONFLICT ({unique_key_name}) DO 
                         UPDATE SET {upsert_update}
                     RETURNING {returning_keys}""",
@@ -159,7 +140,7 @@ class PostgreSQL:
         return ", ".join([f"{c}=EXCLUDED.{c}" for c in campos])
 
     def format_many_values(self, list_objs) -> list:
-        return [self.format_values(obj.values()) for obj in list_objs]
+        return [self.format_values(obj) for obj in list_objs.values]
 
     def format_values(self, values) -> tuple:
         return tuple(values)

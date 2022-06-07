@@ -1,10 +1,6 @@
-import os
+from airflow.models import Variable
 
-from dotenv import load_dotenv
-
-load_dotenv()
-
-MY_BEARER_TOKEN = os.getenv("TWITTER_BEARER_TOKEN")
+TWITTER_BEARER_TOKEN = Variable.get("TWITTER_BEARER_TOKEN")
 USER_FORMAT = {
     "tweet_id": None,
     "author_id": None,

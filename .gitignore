@@ -1,5 +1,9 @@
 .tests
 
+# AirFlow
+logs/*
+airflow.sh
+
 # VSCode
 .vscode
 
